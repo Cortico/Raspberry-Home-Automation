@@ -4,12 +4,6 @@
 
 #loginfield{
     position:absolute;
-
-    width:500px;
     left:50%;
-    margin-left:-250px;
-
-    height:500px;
     top:50%;
-    margin-top:-250px;
 }
