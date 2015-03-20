@@ -9,33 +9,35 @@
     <link href="static/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="ui stackable two column grid">
-        <div class="column">
-            <div class="ui segment">
-                <img id="video"></img>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui segment">
-                <h1>Dog virtual baby sitter</h1>
-                <div class="ui toggle checkbox">
-                  <input type="radio" name="luz">
-                  <label>Clique aqui para acender a luz</label>
+    <div class="ui segment">
+        <div class="ui stackable two column grid">
+            <div class="column">
+                <div class="ui segment">
+                    <img id="video"></img>
                 </div>
-                <div class="ui divider"></div>
-                <div class="fluid teal ui button">Dar petisco</div>
-                <div class="ui divider"></div>
-                <div class="fluid teal ui button">Liberar ração</div>
-                <div class="ui divider"></div>
-                <div class="fluid teal ui button">Colocar água</div>
             </div>
-        </div>
-    </div>
-    <script src="static/semantic/semantic.min.js" type="text/javascript"></script>
-    <script src="static/client.js" type="text/javascript"></script>
-    <script type="text/javascript">
-            // Connect a websocket to the server. The port notation is post-
-            // processed server-side according to the config
+            <div class="column">
+                <div class="ui segment">
+                    <h1>Dog virtual baby sitter</h1>
+                    <div class="ui toggle checkbox">
+                      <input type="radio" name="luz">
+                      <label>Clique aqui para acender a luz</label>
+                  </div>
+                  <div class="ui divider"></div>
+                  <div class="fluid teal ui button">Dar petisco</div>
+                  <div class="ui divider"></div>
+                  <div class="fluid teal ui button">Liberar ração</div>
+                  <div class="ui divider"></div>
+                  <div class="fluid teal ui button">Colocar água</div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <script src="static/semantic/semantic.min.js" type="text/javascript">
+  </script>
+  <script src="static/client.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
             client.connect({{port}});
     </script>
 </body>
