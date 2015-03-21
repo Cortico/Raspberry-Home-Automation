@@ -57,9 +57,18 @@ class PlayHandler(tornado.web.RequestHandler):
 
     def post(self):
         song = self.get_argument("musica", "")
-        print(song + " abc")
         os.system('mpg321 ' + song + ' &')
         self.redirect("/")
+
+class SSHCommand(tornado.web.RequestHandler):
+
+    def get(self):
+        self.render("index.html")
+
+    def post(self):
+        song = self.get_argument("ssh", "")
+        p = os.popen(ssh,"r")
+        self.render("index.html", port=args.port, returnssh=p)
 
 
 class WebSocket(tornado.websocket.WebSocketHandler):

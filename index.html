@@ -31,14 +31,23 @@
           <div class="fluid teal ui button">Colocar água</div>
           <div class="ui fluid form segment">
             <form action="/play" method="POST">
-              <div class="two fields">
                 <div class="field">
                   <input placeholder="Nome da Musica" type="text" name="musica">
                 </div>
-              </div>
               <button type="submit" class="ui blue submit button">Reproduzir</button>
+            </form>
+          </div>
+          <div class="ui fluid form segment">
+            <div class="ui segment">
+              {{returnssh}}
             </div>
-          </form>
+            <form action="/ssh" method="POST">
+                <div class="field">
+                  <input placeholder="SSH Command" type="text" name="ssh">
+                </div>
+              <button type="submit" class="ui blue submit button">Executar</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
