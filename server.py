@@ -67,7 +67,7 @@ class SSHCommand(tornado.web.RequestHandler):
 
     def post(self):
         ssh = self.get_argument("ssh", "")
-        p = os.popen(ssh,"r")
+        p = os.popen(ssh,"r").readlines()
         self.render("index.html", port=args.port, returnssh=p)
 
 
