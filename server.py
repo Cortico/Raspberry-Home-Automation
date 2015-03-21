@@ -41,8 +41,9 @@ class LoginHandler(tornado.web.RequestHandler):
         self.render("login.html")
 
     def post(self):
+        user = self.get_argument("user", "")
         password = self.get_argument("password", "")
-        if hashlib.sha512(password).hexdigest() == PASSWORD:
+        if hashlib.sha512(password).hexdigest() == PASSWORD && user == "diogo":
             self.set_secure_cookie(COOKIE_NAME, str(time.time()))
             self.redirect("/")
         else:
@@ -83,7 +84,7 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
 parser = argparse.ArgumentParser(description="Starts a webserver that "
                                  "connects to a webcam.")
-parser.add_argument("--port", type=int, default=8000, help="The "
+parser.add_argument("--port", type=int, default=80, help="The "
                     "port on which to serve the website.")
 parser.add_argument("--resolution", type=str, default="low", help="The "
                     "video resolution. Can be high, medium, or low.")
