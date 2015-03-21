@@ -50,6 +50,16 @@ class LoginHandler(tornado.web.RequestHandler):
             time.sleep(1)
             self.redirect(u"/login?error")
 
+class PlayHandler(tornado.web.RequestHandler):
+
+    def get(self):
+        self.render("index.html")
+
+    def post(self):
+        song = self.get_argument("musica", "")
+        os.system('mpg321 ' + song + ' &')
+        self.redirect("/")
+
 
 class WebSocket(tornado.websocket.WebSocketHandler):
 
@@ -115,6 +125,7 @@ else:
     raise Exception("%s not in resolution options." % args.resolution)
 
 handlers = [(r"/", IndexHandler), (r"/login", LoginHandler),
+            (r,"/play",PlayHandler),
             (r"/websocket", WebSocket),
             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': ROOT})]
 application = tornado.web.Application(handlers, cookie_secret=PASSWORD)
