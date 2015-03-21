@@ -125,7 +125,7 @@ else:
     raise Exception("%s not in resolution options." % args.resolution)
 
 handlers = [(r"/", IndexHandler), (r"/login", LoginHandler),
-            (r,"/play",PlayHandler),
+            (r"/play",PlayHandler),
             (r"/websocket", WebSocket),
             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': ROOT})]
 application = tornado.web.Application(handlers, cookie_secret=PASSWORD)
