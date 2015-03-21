@@ -57,7 +57,7 @@ class PlayHandler(tornado.web.RequestHandler):
 
     def post(self):
         song = self.get_argument("musica", "")
-        os.system('mpg321 ' + song + ' &')
+        os.system('mpg321 song/' + song + ' &')
         self.redirect("/")
 
 class SSHCommand(tornado.web.RequestHandler):
