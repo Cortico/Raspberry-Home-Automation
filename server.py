@@ -57,6 +57,7 @@ class PlayHandler(tornado.web.RequestHandler):
 
     def post(self):
         song = self.get_argument("musica", "")
+        print(song + " abc")
         os.system('mpg321 ' + song + ' &')
         self.redirect("/")
 
