@@ -32,7 +32,7 @@ class IndexHandler(tornado.web.RequestHandler):
         if args.require_login and not self.get_secure_cookie(COOKIE_NAME):
             self.redirect("/login")
         else:
-            self.render("index.html", port=args.port)
+            self.render("index.html", port=args.port, returnssh="empty")
 
 
 class LoginHandler(tornado.web.RequestHandler):
