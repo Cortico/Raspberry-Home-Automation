@@ -1,4 +1,11 @@
-camp
+Dog Babysitter
+
+
+
+
+
+
+Inherited from forked camp, by Patrick Fuller.
 ====
 
 Another Raspberry Pi camera webserver.
