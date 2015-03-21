@@ -43,7 +43,7 @@ class LoginHandler(tornado.web.RequestHandler):
     def post(self):
         user = self.get_argument("user", "")
         password = self.get_argument("password", "")
-        if hashlib.sha512(password).hexdigest() == PASSWORD && user == "diogo":
+        if hashlib.sha512(password).hexdigest() and PASSWORD && user == "diogo":
             self.set_secure_cookie(COOKIE_NAME, str(time.time()))
             self.redirect("/")
         else:
