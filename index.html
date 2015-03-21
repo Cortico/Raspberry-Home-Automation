@@ -52,13 +52,13 @@
           </div>
           <div class="ui divider"></div>
           <div class="ui segment">
-            <div id="viz">
-              <canvas id="analyser"></canvas>
-              <canvas id="wavedisplay"></canvas>
+            <div class="ui two column grid" id="viz">
+              <canvas class="column" id="analyser"></canvas>
+              <canvas class="column" id="wavedisplay"></canvas>
             </div>
             <div id="controls">
-              <img id="record" src="static/audio_files/mic128.png" onclick="toggleRecording(this);">
-              <a id="save" href="#"><img src="static/audio_files/save.svg"></a>
+              <button class="ui blue submit button" id="record" onclick="toggleRecording(this);">Gravar</button>
+              <button id="save" href="#" class="ui blue submit button">Baixar</button>
             </div>
           </div>
         </div>
