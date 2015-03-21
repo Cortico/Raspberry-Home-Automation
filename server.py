@@ -120,6 +120,4 @@ handlers = [(r"/", IndexHandler), (r"/login", LoginHandler),
 application = tornado.web.Application(handlers, cookie_secret=PASSWORD)
 application.listen(args.port)
 
-webbrowser.open("http://localhost:%d/" % args.port, new=2)
-
 tornado.ioloop.IOLoop.instance().start()
