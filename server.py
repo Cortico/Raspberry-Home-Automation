@@ -32,7 +32,7 @@ class IndexHandler(tornado.web.RequestHandler):
         if args.require_login and not self.get_secure_cookie(COOKIE_NAME):
             self.redirect("/login")
         else:
-            self.render("index.html", port=args.port, returnssh="empty")
+            self.render("index.html", port=args.port, returnssh=">")
 
 
 class LoginHandler(tornado.web.RequestHandler):
@@ -134,7 +134,7 @@ if args.resolution in resolutions:
 else:
     raise Exception("%s not in resolution options." % args.resolution)
 
-handlers = [(r"/", IndexHandler), (r"/login", LoginHandler),
+handlers = [(r"/", IndexHandler), (r"/login", LoginHandler), (r"/ssh",SSHCommand),
             (r"/play",PlayHandler),
             (r"/websocket", WebSocket),
             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': ROOT})]
