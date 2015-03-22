@@ -9,6 +9,7 @@ import os
 import time
 import threading
 import webbrowser
+import spotipy
 
 try:
     import cStringIO as io
@@ -25,6 +26,7 @@ with open(os.path.join(ROOT, "password.txt")) as in_file:
     PASSWORD = in_file.read().strip()
 COOKIE_NAME = "camp"
 
+sp = spotipy.Spotify()
 
 class IndexHandler(tornado.web.RequestHandler):
 
