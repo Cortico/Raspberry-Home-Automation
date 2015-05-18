@@ -91,7 +91,7 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
         if args.use_usb:
             _, frame = camera.read()
-            img = Image.fromarray(frame)
+            img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             img.save(sio, "JPEG")
         else:
             camera.capture(sio, "jpeg", use_video_port=True)
