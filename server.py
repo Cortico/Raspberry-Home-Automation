@@ -10,14 +10,7 @@ import time
 import threading
 import webbrowser
 
-try:
-    import cStringIO as io
-except ImportError:
-    import io
-
 import tornado.web
-import tornado.websocket
-from tornado.ioloop import PeriodicCallback
 
 # Hashed password for comparison and a cookie for login cache
 ROOT = os.path.normpath(os.path.dirname(__file__))
@@ -49,15 +42,15 @@ class LoginHandler(tornado.web.RequestHandler):
             time.sleep(1)
             self.redirect(u"/login?error")
 
-class PlayHandler(tornado.web.RequestHandler):
-
-    def get(self):
-        self.render("index.html")
-
-    def post(self):
-        song = self.get_argument("musica", "")
-        os.system('mpg321 song/' + song + ' &')
-        self.redirect("/")
+#class PlayHandler(tornado.web.RequestHandler):
+#
+#    def get(self):
+#        self.render("index.html")
+#
+#    def post(self):
+#        song = self.get_argument("musica", "")
+#        os.system('mpg321 song/' + song + ' &')
+#        self.redirect("/")
 
 class SSHCommand(tornado.web.RequestHandler):
 
@@ -70,38 +63,6 @@ class SSHCommand(tornado.web.RequestHandler):
         retorno = "".join(p)
         self.render("index.html", port=args.port, returnssh=retorno)
 
-
-class WebSocket(tornado.websocket.WebSocketHandler):
-
-    def on_message(self, message):
-        """Evaluates the function pointed to by json-rpc."""
-
-        # Start an infinite loop when this is called
-        if message == "read_camera":
-            self.camera_loop = PeriodicCallback(self.loop, 10)
-            self.camera_loop.start()
-
-        # Extensibility for other methods
-        else:
-            print("Unsupported function: " + message)
-
-    def loop(self):
-        """Sends camera images in an infinite loop."""
-        sio = io.StringIO()
-
-        if args.use_usb:
-            _, frame = camera.read()
-            img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
-            img.save(sio, "JPEG")
-        else:
-            camera.capture(sio, "jpeg", use_video_port=True)
-
-        try:
-            self.write_message(base64.b64encode(sio.getvalue()))
-        except tornado.websocket.WebSocketClosedError:
-            self.camera_loop.stop()
-
-
 parser = argparse.ArgumentParser(description="Starts a webserver that "
                                  "connects to a webcam.")
 parser.add_argument("--port", type=int, default=8000, help="The "
@@ -113,26 +74,6 @@ parser.add_argument("--require-login", action="store_true", help="Require "
 parser.add_argument("--use-usb", action="store_true", help="Use a USB "
                     "webcam instead of the standard Pi camera.")
 args = parser.parse_args()
-
-if args.use_usb:
-    import cv2
-    from PIL import Image
-    camera = cv2.VideoCapture(0)
-else:
-    import picamera
-    camera = picamera.PiCamera()
-    camera.start_preview()
-
-resolutions = {"high": (1280, 720), "medium": (640, 480), "low": (320, 240)}
-if args.resolution in resolutions:
-    if args.use_usb:
-        w, h = resolutions[args.resolution]
-        camera.set(3, w)
-        camera.set(4, h)
-    else:
-        camera.resolution = resolutions[args.resolution]
-else:
-    raise Exception("%s not in resolution options." % args.resolution)
 
 handlers = [(r"/", IndexHandler), (r"/login", LoginHandler), (r"/ssh",SSHCommand),
             (r"/play",PlayHandler),
