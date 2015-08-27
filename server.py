@@ -67,17 +67,11 @@ parser = argparse.ArgumentParser(description="Starts a webserver that "
                                  "connects to a webcam.")
 parser.add_argument("--port", type=int, default=8000, help="The "
                     "port on which to serve the website.")
-parser.add_argument("--resolution", type=str, default="low", help="The "
-                    "video resolution. Can be high, medium, or low.")
 parser.add_argument("--require-login", action="store_true", help="Require "
                     "a password to log in to webserver.")
-parser.add_argument("--use-usb", action="store_true", help="Use a USB "
-                    "webcam instead of the standard Pi camera.")
 args = parser.parse_args()
 
 handlers = [(r"/", IndexHandler), (r"/login", LoginHandler), (r"/ssh",SSHCommand),
-            (r"/play",PlayHandler),
-            (r"/websocket", WebSocket),
             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': ROOT})]
 application = tornado.web.Application(handlers, cookie_secret=PASSWORD)
 application.listen(args.port)
