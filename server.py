@@ -9,6 +9,7 @@ import os
 import time
 import threading
 import webbrowser
+import RPi.GPIO as GPIO
 
 import tornado.web
 
@@ -42,6 +43,26 @@ class LoginHandler(tornado.web.RequestHandler):
             time.sleep(1)
             self.redirect(u"/login?error")
 
+class SwitchOn(tornado.web.RequestHandler):
+
+   def get(self):
+       GPIO.output(12, True);
+       self.redirect("/")
+
+   def post(self):
+       GPIO.output(12, True);
+       self.redirect("/")
+
+class SwitchOff(tornado.web.RequestHandler):
+
+   def get(self):
+       GPIO.output(12, False);
+       self.redirect("/")
+
+   def post(self):
+       GPIO.output(12, False);
+       self.redirect("/")
+
 #class PlayHandler(tornado.web.RequestHandler):
 #
 #    def get(self):
@@ -69,11 +90,15 @@ parser.add_argument("--port", type=int, default=8000, help="The "
                     "port on which to serve the website.")
 parser.add_argument("--require-login", action="store_true", help="Require "
                     "a password to log in to webserver.")
+parser.add_argument("--gpio", type=int,  default=12, help="Allows you "
+                    "to choose the GPIO port to switch.")
 args = parser.parse_args()
 
-handlers = [(r"/", IndexHandler), (r"/login", LoginHandler), (r"/ssh",SSHCommand),
+handlers = [(r"/", IndexHandler), (r"/turnOn", SwitchOn), (r"/turnOff", SwitchOff),
+            (r"/login", LoginHandler), (r"/ssh",SSHCommand),
             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': ROOT})]
 application = tornado.web.Application(handlers, cookie_secret=PASSWORD)
 application.listen(args.port)
+GPIO.setup(args.gpio, GPIO.OUT)
 
 tornado.ioloop.IOLoop.instance().start()

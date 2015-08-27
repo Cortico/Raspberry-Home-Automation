@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -5,23 +6,27 @@
   <link rel="stylesheet" type="text/css" class="ui" href="static/semantic/semantic.min.css">
 </head>
 <body>
-  <div class="ui segment">
-    <h1>Smart Home</h1>
-    <div class="ui divider"></div>
-    <div class="fluid teal ui button">Brew Coffe</div>
-    <div class="ui divider"></div>
-    <div class="fluid teal ui button">Stop Breweing</div>
-    <div class="ui divider"></div>
-    <div class="ui fluid form segment">
+  <div class="ui grid">
+    <div class="sixteen wide column">
       <div class="ui segment">
-        {{returnssh}}
-      </div>
-      <form action="/ssh" method="POST">
-        <div class="field">
-          <input placeholder="SSH Command" type="text" name="ssh">
+        <h1>Smart Home</h1>
+        <div class="ui divider"></div>
+        <div class="fluid teal ui button"><a href="/turnOn">Brew Coffe</a></div>
+        <div class="ui divider"></div>
+        <div class="fluid teal ui button"><a href="/turnOff">Stop Breweing</a></div>
+        <div class="ui divider"></div>
+        <div class="ui fluid form segment">
+          <div class="ui segment">
+            {{returnssh}}
+          </div>
+          <form action="/ssh" method="POST">
+            <div class="field">
+              <input placeholder="SSH Command" type="text" name="ssh">
+            </div>
+            <button type="submit" class="ui blue submit button">Run</button>
+          </form>
         </div>
-        <button type="submit" class="ui blue submit button">Run</button>
-      </form>
+      </div>
     </div>
   </div>
 
