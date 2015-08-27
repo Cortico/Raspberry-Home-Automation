@@ -47,20 +47,14 @@ class SwitchOn(tornado.web.RequestHandler):
 
    def get(self):
        GPIO.output(12, True);
-       self.redirect("/")
-
-   def post(self):
-       GPIO.output(12, True);
+       print "coffee on"
        self.redirect("/")
 
 class SwitchOff(tornado.web.RequestHandler):
 
    def get(self):
        GPIO.output(12, False);
-       self.redirect("/")
-
-   def post(self):
-       GPIO.output(12, False);
+       print "coffee off"
        self.redirect("/")
 
 #class PlayHandler(tornado.web.RequestHandler):
